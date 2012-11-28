@@ -4,15 +4,27 @@
 
 using Gtk;
 
-int main (string[] args) {
-    Gtk.init (ref args);
+public class WebCssProvider : Object {
 
-    string old_css = CssProvider.get_named("Ambiance", null).to_string();
+  public static string to_lesscss (string name, string? variant) {
+
+    switch (variant) {
+      case "dark":
+      break;
+      case "light":
+      break;
+      default:
+        variant = null;
+      break;
+    }
+
     StringBuilder css_builder = new StringBuilder();
+
+    string old_css = Gtk.CssProvider.get_named(name, variant).to_string();
+    
     string new_css;
 
     var rows = old_css.split("\n");
-    //print(rows.length.to_string());
 
     for (int i=0;i<rows.length;i++) {
       if(rows[i].contains("@define-color")) {
@@ -20,7 +32,7 @@ int main (string[] args) {
         int space = rows[i].index_of(" ");
         rows[i] = rows[i].slice(0,space)+":"+rows[i].slice(space, rows[i].length);
       }
-      /*
+      /* 
        * 
        */
       rows[i] = rows[i].replace("mix (", "mix(");
@@ -29,6 +41,7 @@ int main (string[] args) {
         * Modifies passed color's alpha by a factor f. f is a floating point number. f < 1.0 results in a more transparent color while f > 1.0 results in a more opaque color.
         */ 
       rows[i] = rows[i].replace("alpha (", "alpha(");
+
       /*
        * shade(color, f) - A lighter or darker variant of color, f is a floating point number
        * "f" is the brightness that I described previously,but here it's between 0.0 and 2.0.
@@ -43,7 +56,6 @@ int main (string[] args) {
       rows[i] = rows[i].replace("from (", "from(");
 
       rows[i] = rows[i].replace("color-stop (", "color-stop(");
-
 
       rows[i] = rows[i].replace("to (", "to(");
 
@@ -111,8 +123,6 @@ int main (string[] args) {
 
       rows[i] = rows[i].replace("Image", "image");
 
-
-
       rows[i] = rows[i].replace("Wnck", "wnck");
 
       rows[i] = rows[i].replace("Tasklist", "tasklist");
@@ -123,31 +133,28 @@ int main (string[] args) {
 
       rows[i] = rows[i].replace("GdMain", "gdmain");
 
-
-      //rows[i] = rows[i].replace("background-image: -gtk-gradient (", "background: -webkit-gradient(");
-
       rows[i] = rows[i].replace("-gtk-gradient (", "-webkit-gradient(");
 
-      if( rows[i].contains("currentColor")
-      //     || rows[i].contains("unico")
-      //     || rows[i].contains("-Gtk")
-      //     || rows[i].contains("gtk-gradient")
-      //     || rows[i].contains("-Wnck")
-      //     || rows[i].contains("-TerminalScreen")
-      //     || rows[i].contains("-PanelMenuBar")
-      //     || rows[i].contains("-GdMainIconView-")
-        )
+      if( rows[i].contains("currentColor") )
         rows[i] = "// "+ rows[i];
-
 
 
       css_builder.append(rows[i]);
       css_builder.append("\n");
+
     }
 
     new_css = css_builder.str;
+    return new_css;
+  }
+}
+
+int main (string[] args) {
+
+    Gtk.init (ref args);
+
+    string new_css = WebCssProvider.to_lesscss(args[1], args[2]);
     print(new_css);
 
-    //Gtk.main ();
     return 0;
 }

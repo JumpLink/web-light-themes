@@ -1,3 +1,6 @@
 [submodule "src/normalize"]
 	path = src/normalize
 	url = git://github.com/necolas/normalize.css.git
+[submodule "src/less"]
+	path = src/less
+	url = git://github.com/JumpLink/less.js.git
