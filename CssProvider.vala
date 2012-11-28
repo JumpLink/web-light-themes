@@ -1,110 +1,153 @@
+/*
+ * http://www.gtkforums.com/viewtopic.php?f=3&t=988&start=15
+ */
+
 using Gtk;
-using Gee;
-
-enum foo{
-  PARSING_ERROR,
-  LAST_SIGNAL
-}
-
-public class CssProvider : Gtk.CssProvider {
-
-  struct _PropertyValue {
-    Gtk.CssStyleProperty property;
-    Gtk.CssValue         value;
-    Gtk.CssSection       section;
-  }
-
-  struct WidgetPropertyValue {
-    string name;
-    string value;
-
-    Gtk.CssSection section;
-  }
-
-  struct CssRuleset
-  {
-    Gtk.CssSelector selector;
-    WidgetPropertyValue widget_style;
-    PropertyValue styles;
-    Gtk.Bitmask set_styles;
-    uint n_styles;
-    uint owns_styles = 1;
-    uint owns_widget_style = 1;
-  }
-
-  struct CssScanner
-  {
-    Gtk.CssProvider provider;
-    Gtk.CssParser parser;
-    Gtk.CssSection section;
-    Gtk.CssScanner parent;
-    GSList state;
-  }
-
-  struct CssProviderPrivate
-  {
-    GScanner scanner;
-
-    GHashTable symbolic_colors;
-    GHashTable keyframes;
-
-    GArray rulesets;
-    GResource resource;
-  }
-
-  static bool gtk_keep_css_sections = false;
-  WidgetPropertyValue widget_property_value[];
-
-  public CssProvider () {
-    if ( GLib.Environment.get_variable("GTK_CSS_DEBUG") != null)
-        gtk_keep_css_sections = true;
-  }
-
-  public new static CssProvider get_named (string name, string? variant) {
-      
-    return (CssProvider) Gtk.CssProvider.get_named(name, variant);
-  }
-}
-
 
 int main (string[] args) {
     Gtk.init (ref args);
 
-    // var window = new Window ();
-    // window.title = "First GTK+ Program";
-    // window.border_width = 10;
-    // window.window_position = WindowPosition.CENTER;
-    // window.set_default_size (350, 70);
-    // window.destroy.connect (Gtk.main_quit);
+    string old_css = CssProvider.get_named("Ambiance", null).to_string();
+    StringBuilder css_builder = new StringBuilder();
+    string new_css;
 
-    // var button = new Button.with_label ("Click me!");
-    // button.clicked.connect (() => {
-    //     button.label = "Thank you";
-    // });
+    var rows = old_css.split("\n");
+    //print(rows.length.to_string());
 
-    // window.add (button);
-    // window.show_all ();
+    for (int i=0;i<rows.length;i++) {
+      if(rows[i].contains("@define-color")) {
+        rows[i] = rows[i].replace("define-color ", "");
+        int space = rows[i].index_of(" ");
+        rows[i] = rows[i].slice(0,space)+":"+rows[i].slice(space, rows[i].length);
+      }
+      /*
+       * 
+       */
+      rows[i] = rows[i].replace("mix (", "mix(");
 
-    CssProvider prov = CssProvider.get_named("Ambiance", null);
-    print(prov.to_string());
+       /*
+        * Modifies passed color's alpha by a factor f. f is a floating point number. f < 1.0 results in a more transparent color while f > 1.0 results in a more opaque color.
+        */ 
+      rows[i] = rows[i].replace("alpha (", "alpha(");
+      /*
+       * shade(color, f) - A lighter or darker variant of color, f is a floating point number
+       * "f" is the brightness that I described previously,but here it's between 0.0 and 2.0.
+       *
+       * If you set a color using one of the basic color keywords, say blue,
+       * then on the next line use: shade(blue, 1.0) it will not change.
+       * But if you set: shade(blue, 0.0) then you'll get black.
+       * If you use: shade(blue, 2.0) you'll get white.
+       */
+      rows[i] = rows[i].replace("shade (", "shade(");
 
-    //StyleProperties prop = prov.get_style(button.get_path());
-    
-    // GLib.ParamSpec[] props = button.list_style_properties();
-    // for (int i=0; i<props.length; i++) {
-    //     Value val = Value(props[i].value_type);
-    //     //print(props[i].name+" "+props[i].get_nick()+" "+props[i].get_blurb()+"\n");
+      rows[i] = rows[i].replace("from (", "from(");
 
-    //     button.style_get_property (props[i].name, ref val);
-    //     print(props[i].name+"\t\t\t"+val.strdup_contents()+"\n");
-    // }
-
-    // Gtk.ThemingEngine unico = ThemingEngine.load("unico");
-    // print(unico.name);
-    // Value val = unico.get_style_property ("arrow-texture");
-    // print(val.strdup_contents());
+      rows[i] = rows[i].replace("color-stop (", "color-stop(");
 
 
-    Gtk.main ();
+      rows[i] = rows[i].replace("to (", "to(");
+
+      rows[i] = rows[i].replace("Gtk", "gtk");
+
+      rows[i] = rows[i].replace("Arrow", "arrow");
+
+      rows[i] = rows[i].replace("Button", "button");
+
+      rows[i] = rows[i].replace("Check", "check");
+
+      rows[i] = rows[i].replace("Wnck-", "wnck-");
+
+      rows[i] = rows[i].replace("Entry", "entry");
+
+      rows[i] = rows[i].replace("Expander", "expander");
+
+      rows[i] = rows[i].replace("HTML", "html");
+
+      rows[i] = rows[i].replace("IMHtml", "imhtml");
+
+      rows[i] = rows[i].replace("Bar", "bar");
+
+      rows[i] = rows[i].replace("Item", "item");
+
+      rows[i] = rows[i].replace("Menu", "menu");
+
+      rows[i] = rows[i].replace("Notebook", "notebook");
+
+      rows[i] = rows[i].replace("Paned", "paned");
+
+      rows[i] = rows[i].replace("Progress", "progress");
+
+      rows[i] = rows[i].replace("Range", "range");
+
+      rows[i] = rows[i].replace("Scale", "scale");
+
+      rows[i] = rows[i].replace("Scroll", "scroll");
+
+      rows[i] = rows[i].replace("Window", "window");
+
+      rows[i] = rows[i].replace("Separator", "separator");
+
+      rows[i] = rows[i].replace("Status", "status");
+
+      rows[i] = rows[i].replace("Text", "text");
+
+      rows[i] = rows[i].replace("View", "view");
+
+      rows[i] = rows[i].replace("Tool", "tool");
+
+      rows[i] = rows[i].replace("Group", "group");
+
+      rows[i] = rows[i].replace("Tree", "tree");
+
+      rows[i] = rows[i].replace("Widget", "widget");
+
+      rows[i] = rows[i].replace("Tool", "tool");
+
+      rows[i] = rows[i].replace("Group", "group");
+
+      rows[i] = rows[i].replace("Level", "level");
+
+      rows[i] = rows[i].replace("Icon", "icon");
+
+      rows[i] = rows[i].replace("Image", "image");
+
+
+
+      rows[i] = rows[i].replace("Wnck", "wnck");
+
+      rows[i] = rows[i].replace("Tasklist", "tasklist");
+
+      rows[i] = rows[i].replace("TerminalScreen", "-terminalscreen");
+
+      rows[i] = rows[i].replace("Panel", "panel");
+
+      rows[i] = rows[i].replace("GdMain", "gdmain");
+
+
+      //rows[i] = rows[i].replace("background-image: -gtk-gradient (", "background: -webkit-gradient(");
+
+      rows[i] = rows[i].replace("-gtk-gradient (", "-webkit-gradient(");
+
+      if( rows[i].contains("currentColor")
+      //     || rows[i].contains("unico")
+      //     || rows[i].contains("-Gtk")
+      //     || rows[i].contains("gtk-gradient")
+      //     || rows[i].contains("-Wnck")
+      //     || rows[i].contains("-TerminalScreen")
+      //     || rows[i].contains("-PanelMenuBar")
+      //     || rows[i].contains("-GdMainIconView-")
+        )
+        rows[i] = "// "+ rows[i];
+
+
+
+      css_builder.append(rows[i]);
+      css_builder.append("\n");
+    }
+
+    new_css = css_builder.str;
+    print(new_css);
+
+    //Gtk.main ();
     return 0;
 }
