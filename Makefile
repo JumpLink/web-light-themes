@@ -1,3 +1,5 @@
+all: Ambiance
+
 dirs:
 	@mkdir -p build
 	@mkdir -p result

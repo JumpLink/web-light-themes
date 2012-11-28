@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="./../result/Ambiance.css">
 
-<div class="window">
+<gtkwindow class="window">
 
 	<div class="menubar">
 		</span>	
@@ -14,11 +14,11 @@
 	<div class="primary-toolbar toolbar">
 		<gtktoolbutton>
 			<button class="button">
-				<gtklabel>label</gtklabel>
+				<gtklabel>button</gtklabel>
 			</button>
 		</gtktoolbutton>
 		<gtktoolbutton>
-			button
+			<gtklabel>label</gtklabel>
 		</gtktoolbutton>
 	</div>
 
@@ -27,11 +27,13 @@
 	<br>
 	<div class="inline-toolbar">
 		<span class="toolbar">
-			<gtktoolbutton class="button">
-				button
-			</gtktoolbutton>
-			<gtktoolbutton class="button">
-				button
+				<button class="button">
+					<gtklabel>button</gtklabel>
+				</button>
+			<gtktoolbutton>
+				<button class="button">
+					<gtklabel>button</gtklabel>
+				</button>
 			</gtktoolbutton>
 		</span>	
 	</div>		
@@ -43,5 +45,5 @@
 		<gtklabel>button only</gtklabel>
 	</button>	
 
-</div>
+</gtkwindow>
 

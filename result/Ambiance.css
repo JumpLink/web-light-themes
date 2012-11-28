@@ -326,6 +326,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+html {
+  font-family: Ubuntu;
+  font-size: 11pt;
+}
 @keyframes spinner {
   
 }

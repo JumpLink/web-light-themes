@@ -18,6 +18,12 @@ public class WebCssProvider : Object {
       break;
     }
 
+    Gtk.Settings settings = Gtk.Settings.get_default ();
+
+    var font = settings.gtk_font_name.split(" ");
+
+    string html_font = "html { font-family: "+font[0]+"; font-size: "+font[1]+"pt; }";
+
     StringBuilder css_builder = new StringBuilder();
 
     string old_css = Gtk.CssProvider.get_named(name, variant).to_string();
@@ -25,6 +31,8 @@ public class WebCssProvider : Object {
     string new_css;
 
     var rows = old_css.split("\n");
+
+    css_builder.append(html_font+"\n");
 
     for (int i=0;i<rows.length;i++) {
       if(rows[i].contains("@define-color")) {
@@ -143,7 +151,6 @@ public class WebCssProvider : Object {
       css_builder.append("\n");
 
     }
-
     new_css = css_builder.str;
     return new_css;
   }
