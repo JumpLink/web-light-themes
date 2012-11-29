@@ -3,8 +3,34 @@
  */
 
 using Gtk;
+using GLib;
 
 public class WebCssProvider : Object {
+
+  public static void get_icons () {
+    StringBuilder css_builder = new StringBuilder();
+    Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default ();
+    List<string> icon_contexts = icon_theme.list_contexts ();
+    foreach (string context in icon_contexts) {
+      // print(context);
+      // print("\n");
+      List<string> icons = icon_theme.list_icons(context);
+      foreach (string icon_name in icons) {
+        // print("\t"+icon_name);
+        // print("\n");
+        Gtk.IconInfo icon_info = icon_theme.lookup_icon(icon_name, 32, Gtk.IconLookupFlags.USE_BUILTIN); // http://www.valadoc.org/#!api=gtk+-3.0/Gtk.IconLookupFlags
+        // print("\t\t"+icon_info.get_filename());
+        // print("\n");
+        Gdk.Pixbuf icon_pixbuf = icon_info.load_icon();
+        //icon_pixbuf.save("./tmp/"+icon_name, "png");
+        uint8[] icon_png_buffer;
+        icon_pixbuf.save_to_buffer(out icon_png_buffer, "png");
+        string base64png = GLib.Base64.encode(icon_png_buffer);
+        css_builder.append(@".$(icon_name) { background-image: url(data:image/png;base64,$(base64png)); }\n");
+      }
+    }
+    print(css_builder.str);
+  }
 
   public static string to_lesscss (string name, string? variant) {
 
@@ -160,8 +186,10 @@ int main (string[] args) {
 
     Gtk.init (ref args);
 
-    string new_css = WebCssProvider.to_lesscss(args[1], args[2]);
-    print(new_css);
+    // string new_css = WebCssProvider.to_lesscss(args[1], args[2]);
+    // print(new_css);
+
+    WebCssProvider.get_icons();
 
     return 0;
 }
