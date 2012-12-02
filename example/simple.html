@@ -1,52 +1,76 @@
 <link rel="stylesheet" type="text/css" href="./../result/Ambiance.css">
-<link rel="stylesheet" type="text/css" href="./../result/icons.css">
+<link rel="stylesheet" type="text/css" href="./../result/Ambiance_icons_24.css">
 
 <gtkwindow class="window">
 
-	<div class="menubar">
+	<menubar class="menubar">
 		</span>	
 		<span class="menuitem">
-			test
+			File
 		</span>
 		<span class="menuitem">
-			test
+			Edit
 		</span>
-	</div>
+		<span class="menuitem">
+			View
+		</span>
+		<span class="menuitem">
+			Help
+		</span>
+	</menubar>
 	<div class="primary-toolbar toolbar">
 		<gtktoolbutton>
 			<button class="button">
-				<gtklabel>button</gtklabel>
+				<gtkimage class="filesave icon24"></gtkimage>
+			</button>
+			<button class="button">
+				<gtkimage class="fileopen icon24"></gtkimage>
+			</button>
+			<span class="separator"></span>
+			<button class="button">
+				<gtkimage class="stock_search icon24"></gtkimage>
 			</button>
 		</gtktoolbutton>
-		<gtktoolbutton>
-			<gtklabel>label</gtklabel>
-		</gtktoolbutton>
+		<span class="raised linked">
+			<button class="button">
+				<gtklabel>Page 1</gtklabel>
+			</button>
+			<button class="button">
+				<gtklabel>Page 2</gtklabel>
+			</button>
+		</span>
+
+		<input class="entry", type="search", name="search" ></input>
 	</div>
 
 	<br>
 	<br>
 	<br>
-	<div class="inline-toolbar">
-		<span class="toolbar">
-				<button class="button">
-					<gtklabel>button</gtklabel>
-				</button>
-			<gtktoolbutton>
-				<button class="button">
-					<gtklabel>button</gtklabel>
-				</button>
-			</gtktoolbutton>
-		</span>	
+	<div class="inline-toolbar toolbar">
+		<button class="button">
+			<gtklabel>button</gtklabel>
+		</button>
+		<button class="button">
+			<gtklabel>button</gtklabel>
+		</button>
+		<button class="button">
+			<gtklabel>button</gtklabel>
+		</button>
 	</div>		
 	<br>
 	<br>
 	<br>
 
-	<button class="button">
+	<button class="button test">
 		<gtklabel>button only</gtklabel>
 	</button>
-	<div class="icon32 fileopen">
-	</div>
+	<br><br><br>
+	<input class="entry", value="entry" type="search", name="search" ></input>
+	<br>
+	<input class="entry insensitive", value="entry" type="search", name="search" disabled="disabled"></input>
+	<br>
+	<gtklabel>label</gtklabel>
+	<gtklabel class="insensitive">label</gtklabel>
 
 </gtkwindow>
 

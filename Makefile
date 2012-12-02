@@ -14,10 +14,10 @@ normalize.less: dirs
 	@cp ./src/normalize/normalize.css ./build/normalize.less
 
 style.less: dirs
-	@echo '@import "normalize.less"; @import "$(name).less"; @import "src/$(name)-fix.less";' > build/style.less
+	@echo '@import "normalize.less"; @import "$(name)_theme.less"; @import "src/$(name)_fix.less";' > build/style.less
 
 less: dirs lessc style.less WebCssProvider normalize.less
-	@./build/WebCssProvider $(name) $(variant) > build/$(name).less
+	@./build/WebCssProvider $(name) $(variant)
 
 css: less
 	@./src/less/bin/lessc -O2 build/style.less result/$(name).css

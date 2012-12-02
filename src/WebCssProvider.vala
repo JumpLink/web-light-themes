@@ -7,10 +7,18 @@ using GLib;
 
 public class WebCssProvider : Object {
 
-  public static void get_icons () {
+  public static string icons_to_css (int size) {
     StringBuilder css_builder = new StringBuilder();
     Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default ();
     List<string> icon_contexts = icon_theme.list_contexts ();
+
+    // Gtk.Settings settings = Gtk.Settings.get_default ();
+    // string icon_sizes_string = settings.gtk_icon_sizes; //TODO
+    // print(icon_sizes_string);
+
+
+    css_builder.append(@".icon$(size){ width:$(size)px; height:$(size)px; }");
+
     foreach (string context in icon_contexts) {
       // print(context);
       // print("\n");
@@ -18,7 +26,7 @@ public class WebCssProvider : Object {
       foreach (string icon_name in icons) {
         // print("\t"+icon_name);
         // print("\n");
-        Gtk.IconInfo icon_info = icon_theme.lookup_icon(icon_name, 32, Gtk.IconLookupFlags.USE_BUILTIN); // http://www.valadoc.org/#!api=gtk+-3.0/Gtk.IconLookupFlags
+        Gtk.IconInfo icon_info = icon_theme.lookup_icon(icon_name, size, Gtk.IconLookupFlags.USE_BUILTIN); // http://www.valadoc.org/#!api=gtk+-3.0/Gtk.IconLookupFlags
         // print("\t\t"+icon_info.get_filename());
         // print("\n");
         Gdk.Pixbuf icon_pixbuf = icon_info.load_icon();
@@ -26,13 +34,14 @@ public class WebCssProvider : Object {
         uint8[] icon_png_buffer;
         icon_pixbuf.save_to_buffer(out icon_png_buffer, "png");
         string base64png = GLib.Base64.encode(icon_png_buffer);
-        css_builder.append(@".$(icon_name) { background-image: url(data:image/png;base64,$(base64png)); }\n");
+        css_builder.append(@".$(icon_name).icon$(size) { background-image: url(data:image/png;base64,$(base64png)); }\n");
       }
     }
-    print(css_builder.str);
+
+    return css_builder.str;
   }
 
-  public static string to_lesscss (string name, string? variant) {
+  public static string theme_to_less (string name, string? variant) {
 
     switch (variant) {
       case "dark":
@@ -66,6 +75,19 @@ public class WebCssProvider : Object {
         int space = rows[i].index_of(" ");
         rows[i] = rows[i].slice(0,space)+":"+rows[i].slice(space, rows[i].length);
       }
+
+      /*
+       * Fix global widget properties
+       */
+      if(rows[i].contains("* {")) {
+        css_builder.append(rows[i]+"\n");
+        i++;
+        /*all widgets should not have the same background*/
+        if(rows[i].contains("background-color:")) {
+          css_builder.append("//");
+        }
+      }
+
       /* 
        * 
        */
@@ -92,6 +114,24 @@ public class WebCssProvider : Object {
       rows[i] = rows[i].replace("color-stop (", "color-stop(");
 
       rows[i] = rows[i].replace("to (", "to(");
+
+      /*
+       * css pseudo-classes
+       */
+
+      rows[i] = rows[i].replace(":inconsistent", ".inconsistent");
+
+      rows[i] = rows[i].replace(":backdrop", ".backdrop");
+
+      rows[i] = rows[i].replace(":insensitive", ".insensitive");
+
+      rows[i] = rows[i].replace(":selected", ".selected");
+
+      rows[i] = rows[i].replace(":backdrop", ".backdrop");
+
+      rows[i] = rows[i].replace(":insensitive", ".insensitive");
+
+
 
       rows[i] = rows[i].replace("Gtk", "gtk");
 
@@ -167,6 +207,8 @@ public class WebCssProvider : Object {
 
       rows[i] = rows[i].replace("GdMain", "gdmain");
 
+
+
       rows[i] = rows[i].replace("-gtk-gradient (", "-webkit-gradient(");
 
       if( rows[i].contains("currentColor") )
@@ -180,16 +222,25 @@ public class WebCssProvider : Object {
     new_css = css_builder.str;
     return new_css;
   }
+
+  public static void save_file(string filename, string content) {
+    try{
+        FileUtils.set_contents(filename,content);
+    }catch(Error e){
+        stderr.printf ("Error: %s\n", e.message);
+    }
+  }
 }
 
 int main (string[] args) {
 
     Gtk.init (ref args);
 
-    // string new_css = WebCssProvider.to_lesscss(args[1], args[2]);
-    // print(new_css);
+    string less = WebCssProvider.theme_to_less(args[1], args[2]);
+    WebCssProvider.save_file("build/"+args[1]+"_theme.less", less);
 
-    WebCssProvider.get_icons();
+    less = WebCssProvider.icons_to_css(24);
+    WebCssProvider.save_file(@"result/$(args[1])_icons_24.css", less);
 
     return 0;
 }
