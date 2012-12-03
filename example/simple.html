@@ -2,185 +2,289 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="./../result/Ambiance.css">
 		<link rel="stylesheet" type="text/css" href="./../result/Ambiance_icons_24.css">
+		<link rel="stylesheet" type="text/css" href="./../result/Ambiance_icons_16.css">
 		<script type="text/javascript" src="http://fgnass.github.com/spin.js/dist/spin.js">
 		</script>
 	</head>
 
+	<body>
 
-	<gtkwindow class="window">
+		<gtkwindow class="window">
 
-		<menubar class="menubar">
-			</span>	
-			<span class="menuitem">
-				File
-			</span>
-			<span class="menuitem">
-				Edit
-			</span>
-			<span class="menuitem">
-				View
-			</span>
-			<span class="menuitem">
-				Help
-			</span>
-		</menubar>
-		<div class="primary-toolbar toolbar">
-			<gtktoolbutton>
-				<button class="button">
-					<gtkimage class="filesave icon24"></gtkimage>
-				</button>
-				<button class="button">
-					<gtkimage class="fileopen icon24"></gtkimage>
-				</button>
-				<span class="separator"></span>
-				<button class="button">
-					<gtkimage class="stock_search icon24"></gtkimage>
-				</button>
-			</gtktoolbutton>
-			<span class="raised linked">
-				<button class="button">
-					<gtklabel>Page 1</gtklabel>
-				</button>
-				<button class="button">
-					<gtklabel>Page 2</gtklabel>
-				</button>
-			</span>
+			<table class="vbox", style="width:100%">
+				<tr>
+					<td>
+						<menubar class="menubar">
+							</span>	
+							<span class="menuitem">
+								File
+							</span>
+							<span class="menuitem">
+								Edit
+							</span>
+							<span class="menuitem">
+								View
+							</span>
+							<span class="menuitem">
+								Help
+							</span>
+						</menubar>
 
-			<input class="entry", type="search", name="search" ></input>
-		</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
 
-		<div class="inline-toolbar toolbar">
-			<button class="button">
-				<gtklabel>one</gtklabel>
-			</button>
-			<button class="button">
-				<gtklabel>two</gtklabel>
-			</button>
-			<button class="button">
-				<gtklabel>three</gtklabel>
-			</button>
-		</div>
+						<div class="primary-toolbar toolbar">
+							<gtktoolbutton>
+								<button class="button">
+									<gtkimage class="filesave icon24"></gtkimage>
+								</button>
+								<button class="button">
+									<gtkimage class="fileopen icon24"></gtkimage>
+								</button>
+								<span class="separator"></span>
+								<button class="button">
+									<gtkimage class="stock_search icon24"></gtkimage>
+								</button>
+							</gtktoolbutton>
+							<span class="raised linked">
+								<button class="button">
+									<gtklabel>Page 1</gtklabel>
+								</button>
+								<button class="button">
+									<gtklabel>Page 2</gtklabel>
+								</button>
+							</span>
 
-		<br>	
+							<input class="entry" type="search" name="search"></input>
+						</div>
 
-		<select class="entry">
-			<option value="Milk">Fresh Milk</option>
-			<option value="Cheese">Old Cheese</option>
-			<option value="Bread">Hot Bread</option>
-		</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="inline-toolbar toolbar">
+							<button class="button">
+								<gtklabel>one</gtklabel>
+							</button>
+							<button class="button">
+								<gtklabel>two</gtklabel>
+							</button>
+							<button class="button">
+								<gtklabel>three</gtklabel>
+							</button>
+						</div>
 
-		<br><br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>
+												<select class="entry" style="width:100%">
+													<option value="Milk">Fresh Milk</option>
+													<option value="Cheese">Old Cheese</option>
+													<option value="Bread">Hot Bread</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<select class="entry insensitive" disabled="disabled" style="width:100%">
+													<option value="Milk">Fresh Milk</option>
+													<option value="Cheese">Old Cheese</option>
+													<option value="Bread">Hot Bread</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<gtkComboBox class="combobox-entry">
+													<input class="entry", value="entry"></input>
+													<button class="button">
+														<gtklabel>&#9662;</gtklabel>
+													</button>
+												</gtkComboBox>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<gtkComboBox class="combobox-entry">
+													<input class="entry insensitive" value="entry"></input>
+													<button class="button insensitive">
+														<gtklabel>&#9662;</gtklabel>
+													</button>
+												</gtkComboBox>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="entry" value="entry" style="width:100%"></input>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="entry insensitive" value="entry" disabled="disabled" style="width:100%"></input>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<table>
+													<tr>
+														<td>
+															<gtklabel>label</gtklabel>
+														</td>
+														<td>
+															<gtklabel class="insensitive">label</gtklabel>
+														</td>
+														<td>
+															<span class="entry spinbutton">
+																<input class="entry" value="entry" style="width:50px;"></input>
+																<button class="spinbutton button">
+																</button>
+																<button class="spinbutton button">
+																</button>
+															</span>
+														</td>
+														<td>
+															<span class="entry spinbutton insensitive">
+																<input class="entry insensitive" value="entry" style="width:50px;"></input>
+																<button class="spinbutton button insensitive">
+																</button>
+																<button class="spinbutton button insensitive">
+																</button>
+															</span>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td>Table Cell</td>
+								<td>Table Cell</td>
+								<td>Table Cell</td>
+								<td>Table Cell</td>
+							</tr>
+						</table>
 
-		<select class="entry insensitive" disabled="disabled">
-			<option value="Milk">Fresh Milk</option>
-			<option value="Cheese">Old Cheese</option>
-			<option value="Bread">Hot Bread</option>
-		</select>
+						<table>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td><gtkcheckbutton class="check active "></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="check"></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="check inconsistent"></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="check active insensitive"></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="check insensitive"></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="check inconsistent insensitive"></gtkcheckbutton>&nbsp; checkbutton</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td><gtkcheckbutton class="radio active"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="radio"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="radio inconsistent"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="radio active insensitive"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="radio insensitive"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+										<tr>
+											<td><gtkcheckbutton class="radio inconsistent insensitive"></gtkcheckbutton>&nbsp; radiobutton</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td>
+												<div id="spinner" clas="spinner" style="width:27px;height:27px;"></div>
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
 
-		<br><br>
 
-		<gtkComboBox class="combobox-entry">
-			<input class="entry", value="entry" type="search", name="search" ></input>
-			<button class="button">
-				<gtklabel>&nbsp;&nbsp;&#9662;&nbsp;&nbsp;</gtklabel>
-			</button>
-		</gtkComboBox>
 
-		<br><br>
 
-		<gtkComboBox class="combobox-entry">
-			<input class="entry insensitive" value="entry" type="search" name="search" ></input>
-			<button class="button insensitive">
-				<gtklabel>&nbsp;&nbsp;&#9662;&nbsp;&nbsp;</gtklabel>
-			</button>
-		</gtkComboBox>
 
-		<br><br>
 
-		<input class="entry" value="entry"></input>
-		<br><br>
-		<input class="entry insensitive", value="entry" disabled="disabled"></input>
-		<br><br>
-		<gtklabel>label</gtklabel>
-		<gtklabel class="insensitive">label</gtklabel>
 
-		<br>
 
-		<gtkcheckbutton class="check active "></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="check"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="check inconsistent"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="check active insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="check insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="check inconsistent insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
+						<gtkSwitch class="slider">
+							On
+						</gtkSwitch>
+						<gtkSwitch class="trough">
+							On
+						</gtkSwitch>
+						<br><br>
 
-		<gtkcheckbutton class="radio active"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="radio"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="radio inconsistent"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="radio active insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="radio insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
-		<gtkcheckbutton class="radio inconsistent insensitive"></gtkcheckbutton>&nbsp; checkbutton
-		<br><br>
 
-		<span class="entry spinbutton">
-			<input class="entry" value="entry"></input>
-			<button class="spinbutton button">
-			</button>
-			<button class="spinbutton button">
-			</button>
-		</span>
-		<br><br>
-		<span class="entry spinbutton insensitive">
-			<input class="entry insensitive" value="entry"></input>
-			<button class="spinbutton button insensitive">
-			</button>
-			<button class="spinbutton button insensitive">
-			</button>
-		</span>
-		<br><br>
 
-		<gtkSwitch class="slider">
-			On
-		</gtkSwitch>
-		<gtkSwitch class="trough">
-			On
-		</gtkSwitch>
-		<br><br>
 
-		<div id="spinner" clas="spinner">
-		</div>
 
-	</gtkwindow>
+					</td>
+				</tr>
+				<tr>
+					<td>Table Cell</td>
+				</tr>
+			</table>
 
-	<script type="text/javascript">
-		var opts = {
-		  lines: 9, // The number of lines to draw
-		  length: 0, // The length of each line
-		  width: 5, // The line thickness
-		  radius: 8, // The radius of the inner circle
-		  corners: 1, // Corner roundness (0..1)
-		  rotate: 0, // The rotation offset
-		  color: '#000', // #rgb or #rrggbb
-		  speed: 1, // Rounds per second
-		  trail: 60, // Afterglow percentage
-		  shadow: false, // Whether to render a shadow
-		  hwaccel: false, // Whether to use hardware acceleration
-		  className: 'spinner', // The CSS class to assign to the spinner
-		  zIndex: 2e9, // The z-index (defaults to 2000000000)
-		  top: 'auto', // Top position relative to parent in px
-		  left: 'auto' // Left position relative to parent in px
-		};
-		var target = document.getElementById('spinner');
-		var spinner = new Spinner(opts).spin(target);
-	</script>
-</html>
+
+		</gtkwindow>
+	</body>
+		<script type="text/javascript">
+			var opts = {
+			  lines: 9, // The number of lines to draw
+			  length: 0, // The length of each line
+			  width: 5, // The line thickness
+			  radius: 8, // The radius of the inner circle
+			  corners: 1, // Corner roundness (0..1)
+			  rotate: 0, // The rotation offset
+			  color: '#000', // #rgb or #rrggbb
+			  speed: 1, // Rounds per second
+			  trail: 60, // Afterglow percentage
+			  shadow: false, // Whether to render a shadow
+			  hwaccel: false, // Whether to use hardware acceleration
+			  className: 'spinner', // The CSS class to assign to the spinner
+			  zIndex: 2e9, // The z-index (defaults to 2000000000)
+			  top: 'auto', // Top position relative to parent in px
+			  left: 'auto' // Left position relative to parent in px
+			};
+			var target = document.getElementById('spinner');
+			var spinner = new Spinner(opts).spin(target);
+		</script>
+	</html>

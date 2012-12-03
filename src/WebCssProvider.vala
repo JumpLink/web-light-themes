@@ -57,7 +57,7 @@ public class WebCssProvider : Object {
 
     var font = settings.gtk_font_name.split(" ");
 
-    string html_font = "html { font-family: "+font[0]+"; font-size: "+font[1]+"pt; }";
+    string html_font = "* { font-family: "+font[0]+"; font-size: "+font[1]+"pt; }";
 
     StringBuilder css_builder = new StringBuilder();
 
@@ -244,6 +244,8 @@ int main (string[] args) {
 
     less = WebCssProvider.icons_to_css(24);
     WebCssProvider.save_file(@"result/$(args[1])_icons_24.css", less);
+    less = WebCssProvider.icons_to_css(16);
+    WebCssProvider.save_file(@"result/$(args[1])_icons_16.css", less);
 
     return 0;
 }
