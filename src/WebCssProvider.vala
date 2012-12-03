@@ -131,7 +131,10 @@ public class WebCssProvider : Object {
 
       rows[i] = rows[i].replace(":insensitive", ".insensitive");
 
+      rows[i] = rows[i].replace(".check:active", ".check.active");
 
+      rows[i] = rows[i].replace(".radio:active", ".radio.active");
+ 
 
       rows[i] = rows[i].replace("Gtk", "gtk");
 

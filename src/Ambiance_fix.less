@@ -5,6 +5,11 @@ gtkwindow {
   background-color: @bg_color;
 }
 
+body {
+  background-color: @bg_color;
+}
+
+
 // gtktoolbutton {
 // 	background: transparent;
 // }
@@ -70,4 +75,42 @@ gtkimage {
 .inline-toolbar {
 	width:100%; 
 	height: 37px;
+}
+
+.entry {
+  float: left;
+  height: 27px;
+}
+gtkcombobox.combobox-entry .entry {
+  height: 15px;
+}
+gtkcombobox.combobox-entry .button {
+  height: 27px;
+  padding-top:0px;
+}
+
+.check, .radio {
+  height: 17px;
+  width: 17px;
+  display: block;
+  float: left;
+}
+
+.entry.spinbutton {
+  padding: 0;
+}
+.entry.spinbutton .entry {
+  border: none;
+  height:27px;
+  background: transparent;
+}
+.entry.spinbutton .button:nth-child(2) {
+  height: 26px;
+  width: 26px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AwCFzo5pRSw+gAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAABMSURBVEjH7ZMxDgAwCAJL4w99p99zcGnnTnVoWAqzgXCRMaQHQmbSwiazGTXMAAijMH6I0W4H7r46RhEBWrOOD6pKD6KdCaMwKuzUBjUdCifBaa3gAAAAAElFTkSuQmCC);
+}
+.entry.spinbutton .button:last-child {
+  height: 26px;
+  width: 26px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AwDAAA0X9nArgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAA8SURBVEjHY2AYBaNgFIxs4OPj89/Hx+c/OXqZ6OnQ4WsZIzFxRIxBW7ZsYRxUPhtNjUPPslEwCkYB7QEA/zILnEW1+6oAAAAASUVORK5CYII=);
 }
