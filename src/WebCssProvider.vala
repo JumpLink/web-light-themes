@@ -124,16 +124,17 @@ public class WebCssProvider : Object {
 
       //rows[i] = rows[i].replace("TerminalScreen", "-terminalscreen");
 
-
       /*
        * transform -gtk-gradient to -webkit-gradient
        * TODO support for all big webbrowsers
        */
-      rows[i] = rows[i].replace("-gtk-gradient (", "-webkit-gradient(");
-
+      rows[i] = rows[i].replace("background-image: -gtk-gradient (", "background-image: background_gradient(");
+      rows[i] = rows[i].replace("color-stop", "color_stop");
       if( rows[i].contains("currentcolor") )
         rows[i] = "// "+ rows[i];
-
+      //TODO remove
+      if( rows[i].contains("border-image-source: -gtk-gradient") )
+        rows[i] = "// "+ rows[i];
 
       css_builder.append(rows[i]);
       css_builder.append("\n");
