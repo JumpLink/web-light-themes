@@ -102,12 +102,12 @@ public class WebCssProvider : Object {
       /* 
        * all unctions must not have blank between functioname and "("
        */
-      rows[i] = rows[i].replace("mix (", "mix(");
-      rows[i] = rows[i].replace("alpha (", "alpha(");
-      rows[i] = rows[i].replace("shade (", "shade(");
-      rows[i] = rows[i].replace("from (", "from(");
-      rows[i] = rows[i].replace("color-stop (", "color-stop(");
-      rows[i] = rows[i].replace("to (", "to(");
+      rows[i] = rows[i].replace("mix (", "gtk_mix(");
+      rows[i] = rows[i].replace("alpha (", "gtk_alpha(");
+      rows[i] = rows[i].replace("shade (", "gtk_shade(");
+      rows[i] = rows[i].replace("from (", "gtk_from(");
+      rows[i] = rows[i].replace("color-stop (", "gtk_color_stop(");
+      rows[i] = rows[i].replace("to (", "gtk_to(");
 
       /*
        * transform unusual css-pseudo-classes to non-pseudo-classes
@@ -120,20 +120,15 @@ public class WebCssProvider : Object {
       rows[i] = rows[i].replace(":insensitive", ".insensitive");
       rows[i] = rows[i].replace(".check:active", ".check.active");
       rows[i] = rows[i].replace(".radio:active", ".radio.active");
- 
-
-      //rows[i] = rows[i].replace("TerminalScreen", "-terminalscreen");
 
       /*
-       * transform -gtk-gradient to -webkit-gradient
-       * TODO support for all big webbrowsers
+       * use own less-function to create gradients for all big browsers
        */
-      rows[i] = rows[i].replace("background-image: -gtk-gradient (", "background-image: background_gradient(");
-      rows[i] = rows[i].replace("color-stop", "color_stop");
-      if( rows[i].contains("currentcolor") )
-        rows[i] = "// "+ rows[i];
+      rows[i] = rows[i].replace("background-image: -gtk-gradient (", "background-image: gtk_gradient(background-image, ");
+      rows[i] = rows[i].replace("border-image-source: -gtk-gradient (", "border-image-source: gtk_gradient(border-image-source, ");
+
       //TODO remove
-      if( rows[i].contains("border-image-source: -gtk-gradient") )
+      if( rows[i].contains("currentcolor") )
         rows[i] = "// "+ rows[i];
 
       css_builder.append(rows[i]);
