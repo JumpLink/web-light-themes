@@ -70,6 +70,14 @@ public class WebCssProvider : Object {
     css_builder.append(html_font+"\n");
 
     for (int i=0;i<rows.length;i++) {
+
+      /*
+       * use string.down() for all chars except base64-strings
+       */
+      if(!rows[i].contains("base64")) {
+        rows[i] = rows[i].down();
+      }
+
       /*
        * Transform colordefinitions to a less compatible form  
        */
@@ -82,7 +90,7 @@ public class WebCssProvider : Object {
       /*
        * Fix global widget properties
        */
-      if(rows[i].contains("* {")) {
+      if(rows[i].contains("* {") && rows[i].length == 3){
         css_builder.append(rows[i]+"\n");
         i++;
         /*all widgets should not have the same background*/
@@ -113,47 +121,8 @@ public class WebCssProvider : Object {
       rows[i] = rows[i].replace(".check:active", ".check.active");
       rows[i] = rows[i].replace(".radio:active", ".radio.active");
  
-      /*
-       * Workaround for lowercase string
-       * TODO use string.down() for all chars except base64-strings
-       */
-      rows[i] = rows[i].replace("Gtk", "gtk");
-      rows[i] = rows[i].replace("Arrow", "arrow");
-      rows[i] = rows[i].replace("Button", "button");
-      rows[i] = rows[i].replace("Check", "check");
-      rows[i] = rows[i].replace("Wnck-", "wnck-");
-      rows[i] = rows[i].replace("Entry", "entry");
-      rows[i] = rows[i].replace("Expander", "expander");
-      rows[i] = rows[i].replace("HTML", "html");
-      rows[i] = rows[i].replace("IMHtml", "imhtml");
-      rows[i] = rows[i].replace("Bar", "bar");
-      rows[i] = rows[i].replace("Item", "item");
-      rows[i] = rows[i].replace("Menu", "menu");
-      rows[i] = rows[i].replace("Notebook", "notebook");
-      rows[i] = rows[i].replace("Paned", "paned");
-      rows[i] = rows[i].replace("Progress", "progress");
-      rows[i] = rows[i].replace("Range", "range");
-      rows[i] = rows[i].replace("Scale", "scale");
-      rows[i] = rows[i].replace("Scroll", "scroll");
-      rows[i] = rows[i].replace("Window", "window");
-      rows[i] = rows[i].replace("Separator", "separator");
-      rows[i] = rows[i].replace("Status", "status");
-      rows[i] = rows[i].replace("Text", "text");
-      rows[i] = rows[i].replace("View", "view");
-      rows[i] = rows[i].replace("Tool", "tool");
-      rows[i] = rows[i].replace("Group", "group");
-      rows[i] = rows[i].replace("Tree", "tree");
-      rows[i] = rows[i].replace("Widget", "widget");
-      rows[i] = rows[i].replace("Tool", "tool");
-      rows[i] = rows[i].replace("Group", "group");
-      rows[i] = rows[i].replace("Level", "level");
-      rows[i] = rows[i].replace("Icon", "icon");
-      rows[i] = rows[i].replace("Image", "image");
-      rows[i] = rows[i].replace("Wnck", "wnck");
-      rows[i] = rows[i].replace("Tasklist", "tasklist");
-      rows[i] = rows[i].replace("TerminalScreen", "-terminalscreen");
-      rows[i] = rows[i].replace("Panel", "panel");
-      rows[i] = rows[i].replace("GdMain", "gdmain");
+
+      //rows[i] = rows[i].replace("TerminalScreen", "-terminalscreen");
 
 
       /*
@@ -162,7 +131,7 @@ public class WebCssProvider : Object {
        */
       rows[i] = rows[i].replace("-gtk-gradient (", "-webkit-gradient(");
 
-      if( rows[i].contains("currentColor") )
+      if( rows[i].contains("currentcolor") )
         rows[i] = "// "+ rows[i];
 
 
